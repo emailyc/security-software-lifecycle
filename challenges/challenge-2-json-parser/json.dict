@@ -1,0 +1,137 @@
+#
+# AFL dictionary for JSON
+# -----------------------
+#
+# Just the very basics.
+#
+# Inspired by a dictionary by Jakub Wilk <jwilk@jwilk.net>
+#
+
+"0"
+",0"
+":0"
+"0:"
+"-1.2e+3"
+
+"true"
+"false"
+"null"
+
+"\"\""
+",\"\""
+":\"\""
+"\"\":"
+
+"{}"
+",{}"
+":{}"
+"{\"\":0}"
+"{{}}"
+
+"[]"
+",[]"
+":[]"
+"[0]"
+"[[]]"
+
+"''"
+"\\"
+"\\b"
+"\\f"
+"\\n"
+"\\r"
+"\\t"
+"\\u0000"
+"\\x00"
+"\\0"
+"\\uD800\\uDC00"
+"\\uDBFF\\uDFFF"
+
+"\"\":0"
+"//"
+"/**/"
+
+"$ref"
+"type"
+"coordinates"
+"@context"
+"@id"
+
+","
+":"
+
+# Additional entries
+
+# Numbers
+"123"
+"-123"
+"3.14159"
+"1e4"
+"1E-4"
+"0x1A"
+
+# Booleans
+"true"
+"false"
+
+# Null
+"null"
+
+# Strings
+"\"\""
+"\"sample\""
+"\"123\""
+"\"true\""
+"\"null\""
+"\"\\\"escaped\\\"\""
+"\"\\u00A9\""
+"\"\\uD83D\\uDE00\""
+
+# Special Characters
+"\\b"
+"\\f"
+"\\n"
+"\\r"
+"\\t"
+"\\u0000"
+"\\x00"
+"\\0"
+
+# Common Keys
+"\"id\":0"
+"\"name\":\"\""
+"\"date\":\"\""
+"\"title\":\"\""
+"\"description\":\"\""
+"\"value\":0"
+"\"status\":\"\""
+"\"message\":\"\""
+
+# Objects
+"{}"
+"{\"id\":0}"
+"{\"name\":\"value\"}"
+"{\"items\":[]}"
+"{\"data\":{}}"
+
+# Arrays
+"[]"
+"[0]"
+"[\"item1\", \"item2\"]"
+"[[1, 2], [3, 4]]"
+"[{\"id\":1}, {\"id\":2}]"
+
+# Nested Structures
+"{\"user\":{\"name\":\"John\", \"age\":30}}"
+"[{\"id\":1, \"data\":{\"value\":100}}]"
+
+# Comments
+"//"
+"/**/"
+
+# Punctuation
+","
+":"
+"\"\":"
+"{\"\":0}"
+
