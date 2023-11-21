@@ -1,120 +1,37 @@
-[AFL++ 7c16c47a1303] /AFLplusplus/security-software-lifecycle/challenges/challenge-2-json-parser # vim json_reader.c 
-[AFL++ 7c16c47a1303] /AFLplusplus/security-software-lifecycle/challenges/challenge-2-json-parser # afl-cc -fsanitize=address -o json_reader json_reader.c  -lyajl -I'/AFLplusp
-lus/security-software-lifecycle/challenges/challenge-2-json-parser/YAJL/build/yajl-2.1.1/include' -L'/AFLplusplus/security-software-lifecycle/challenges/challenge-2-json-pars
-er/YAJL/build/yajl-2.1.1/lib' -I /AFLplusplus/include
-afl-cc++4.09a by Michal Zalewski, Laszlo Szekeres, Marc Heuse - mode: LLVM-PCGUARD
-SanitizerCoveragePCGUARD++4.09a
-[+] Instrumented 26 locations with no collisions (non-hardened, ASAN mode) of which are 3 handled and 0 unhandled selects.
-[AFL++ 7c16c47a1303] /AFLplusplus/security-software-lifecycle/challenges/challenge-2-json-parser # 
-[AFL++ 7c16c47a1303] /AFLplusplus/security-software-lifecycle/challenges/challenge-2-json-parser # 
-[AFL++ 7c16c47a1303] /AFLplusplus/security-software-lifecycle/challenges/challenge-2-json-parser # 
-[AFL++ 7c16c47a1303] /AFLplusplus/security-software-lifecycle/challenges/challenge-2-json-parser # 
-[AFL++ 7c16c47a1303] /AFLplusplus/security-software-lifecycle/challenges/challenge-2-json-parser # 
-[AFL++ 7c16c47a1303] /AFLplusplus/security-software-lifecycle/challenges/challenge-2-json-parser # afl-fuzz -i ./seeds -o ./findings -x json.dict -- ./json_reader 
-[+] Enabled environment variable AFL_SKIP_CPUFREQ with value 1
-[+] Enabled environment variable AFL_I_DONT_CARE_ABOUT_MISSING_CRASHES with value 1
-[+] Enabled environment variable AFL_PRELOAD with value YAJL/build/yajl-2.1.1/lib
-[+] Enabled environment variable AFL_TRY_AFFINITY with value 1
-afl-fuzz++4.09a based on afl by Michal Zalewski and a large online community
-[+] AFL++ is maintained by Marc "van Hauser" Heuse, Dominik Maier, Andrea Fioraldi and Heiko "hexcoder" Eißfeldt
-[+] AFL++ is open source, get it at https://github.com/AFLplusplus/AFLplusplus
-[+] NOTE: AFL++ >= v3 has changed defaults and behaviours - see README.md
-[+] No -M/-S set, autoconfiguring for "-S default"
-[*] Getting to work...
-[+] Using exponential power schedule (FAST)
-[+] Enabled testcache with 50 MB
-[+] Generating fuzz data with a length of min=1 max=1048576
-[*] Checking core_pattern...
-
-[-] Hmm, your system is configured to send core dump notifications to an
-    external utility. This will cause issues: there will be an extended delay
-    between stumbling upon a crash and having this information relayed to the
-    fuzzer via the standard waitpid() API.
-    If you're just testing, set 'AFL_I_DONT_CARE_ABOUT_MISSING_CRASHES=1'.
-
-    To avoid having crashes misinterpreted as timeouts, please log in as root
-    and temporarily modify /proc/sys/kernel/core_pattern, like so:
-
-    echo core >/proc/sys/kernel/core_pattern
-[+] You have 4 CPU cores and 8 runnable tasks (utilization: 200%).
-[!] WARNING: System under apparent load, performance may be spotty.
-[*] Setting up output directories...
-[*] Checking CPU core loadout...
-[+] Found a free CPU core, try binding to #0.
-[*] Scanning './seeds'...
-[+] Loaded a total of 9 seeds.
-[*] Creating hard links for all input files...
-[*] Validating target binary...
-[+] Persistent mode binary detected.
-[+] Deferred forkserver binary detected.
-[*] Spinning up the fork server...
-[+] All right - fork server is up.
-[*] Using SHARED MEMORY FUZZING feature.
-[*] Target map size: 1044
-[*] No auto-generated dictionary tokens to reuse.
-
-          american fuzzy lop ++4.09a {default} (./json_reader) [fast]
-┌─ process timing ────────────────────────────────────┬─ overall results ────┐
-│        run time : 0 days, 0 hrs, 4 min, 35 sec      │  cycles done : 12    │
-│   last new find : 0 days, 0 hrs, 0 min, 1 sec       │ corpus count : 502   │
-│last saved crash : 0 days, 0 hrs, 0 min, 12 sec      │saved crashes : 1     │
-│ last saved hang : none seen yet                     │  saved hangs : 0     │
-├─ cycle progress ─────────────────────┬─ map coverage┴──────────────────────┤
-│  now processing : 255.29 (50.8%)     │    map density : 10.44% / 46.55%    │
-│  runs timed out : 0 (0.00%)          │ count coverage : 4.54 bits/tuple    │
-├─ stage progress ─────────────────────┼─ findings in depth ─────────────────┤
-│  now trying : splice 14              │ favored items : 80 (15.94%)         │
-│ stage execs : 14/43 (32.56%)         │  new edges on : 133 (26.49%)        │
-│ total execs : 5.29M                  │ total crashes : 1 (1 saved)         │
-│  exec speed : 20.8k/sec              │  total tmouts : 54 (0 saved)        │
-├─ fuzzing strategy yields ────────────┴─────────────┬─ item geometry ───────┤
-│   bit flips : disabled (default, enable with -D)   │    levels : 13        │
-│  byte flips : disabled (default, enable with -D)   │   pending : 219       │
-│ arithmetics : disabled (default, enable with -D)   │  pend fav : 0         │
-│  known ints : disabled (default, enable with -D)   │ own finds : 493       │
-│  dictionary : havoc mode                           │  imported : 0         │
-│havoc/splice : 375/3.20M, 119/2.03M                 │ stability : 99.79%    │
-│py/custom/rq : unused, unused, unused, unused       ├───────────────────────┘
-│    trim/eff : 66.69%/62.8k, disabled               │          [cpu000: 75%]
-└─ strategy: explore ────────── state: started :-) ──┘^C
-
-+++ Testing aborted by user +++
-[+] We're done here. Have a nice day!
-
-[AFL++ 7c16c47a1303] /AFLplusplus/security-software-lifecycle/challenges/challenge-2-json-parser # 
-[AFL++ 7c16c47a1303] /AFLplusplus/security-software-lifecycle/challenges/challenge-2-json-parser # 
-[AFL++ 7c16c47a1303] /AFLplusplus/security-software-lifecycle/challenges/challenge-2-json-parser # ./json_reader < findings/default/crashes/id\:000000\,sig\:06\,src\:000210\,time\:262587\,execs\:5017834\,op\:havoc\,rep\:3 
+AFL++ 1571acfebbb8] /AFLplusplus/security-software-lifecycle/challenges/challenge-2-json-parser # ./json_reader < findings/default/crashes/id\:000009\,sig\:06\,src\:000535\,time\:600989\,execs\:13348111\,op\:havoc\,rep\:1 
 =================================================================
-==515==ERROR: AddressSanitizer: heap-buffer-overflow on address 0x6040000000b1 at pc 0x7f70853eba8e bp 0x7ffc53a02210 sp 0x7ffc53a02208
-READ of size 1 at 0x6040000000b1 thread T0
-    #0 0x7f70853eba8d in hexToDigit /AFLplusplus/security-software-lifecycle/challenges/challenge-2-json-parser/YAJL/src/yajl_encode.c:93:27
-    #1 0x7f70853eba8d in yajl_string_decode /AFLplusplus/security-software-lifecycle/challenges/challenge-2-json-parser/YAJL/src/yajl_encode.c:162:21
-    #2 0x7f70853e8299 in yajl_do_parse /AFLplusplus/security-software-lifecycle/challenges/challenge-2-json-parser/YAJL/src/yajl_parser.c:235:25
-    #3 0x7f70853f233c in yajl_tree_parse /AFLplusplus/security-software-lifecycle/challenges/challenge-2-json-parser/YAJL/src/yajl_tree.c:379:14
-    #4 0x5605e42077a4 in main /AFLplusplus/security-software-lifecycle/challenges/challenge-2-json-parser/json_reader.c:69:25
-    #5 0x7f70850ccd8f  (/lib/x86_64-linux-gnu/libc.so.6+0x29d8f) (BuildId: a43bfc8428df6623cd498c9c0caeb91aec9be4f9)
-    #6 0x7f70850cce3f in __libc_start_main (/lib/x86_64-linux-gnu/libc.so.6+0x29e3f) (BuildId: a43bfc8428df6623cd498c9c0caeb91aec9be4f9)
-    #7 0x5605e4149414 in _start (/AFLplusplus/security-software-lifecycle/challenges/challenge-2-json-parser/json_reader+0x1f414) (BuildId: aa588682729e501e6be647fc1e94ffe19a385a7e)
+==1237==ERROR: AddressSanitizer: heap-buffer-overflow on address 0x60c000000240 at pc 0x7f056f818d39 bp 0x7ffd8dcbe3f0 sp 0x7ffd8dcbe3e8
+WRITE of size 1 at 0x60c000000240 thread T0
+    #0 0x7f056f818d38 in handle_number /AFLplusplus/security-software-lifecycle/challenges/challenge-2-json-parser/YAJL/src/yajl_tree.c:267:34
+    #1 0x7f056f80e002 in yajl_do_parse /AFLplusplus/security-software-lifecycle/challenges/challenge-2-json-parser/YAJL/src/yajl_parser.c:265:29
+    #2 0x7f056f81833c in yajl_tree_parse /AFLplusplus/security-software-lifecycle/challenges/challenge-2-json-parser/YAJL/src/yajl_tree.c:379:14
+    #3 0x557230dc87a4 in main /AFLplusplus/security-software-lifecycle/challenges/challenge-2-json-parser/json_reader.c:69:25
+    #4 0x7f056f4f2d8f  (/lib/x86_64-linux-gnu/libc.so.6+0x29d8f) (BuildId: a43bfc8428df6623cd498c9c0caeb91aec9be4f9)
+    #5 0x7f056f4f2e3f in __libc_start_main (/lib/x86_64-linux-gnu/libc.so.6+0x29e3f) (BuildId: a43bfc8428df6623cd498c9c0caeb91aec9be4f9)
+    #6 0x557230d0a414 in _start (/AFLplusplus/security-software-lifecycle/challenges/challenge-2-json-parser/json_reader+0x1f414) (BuildId: aa588682729e501e6be647fc1e94ffe19a385a7e)
 
-0x6040000000b1 is located 0 bytes to the right of 33-byte region [0x604000000090,0x6040000000b1)
+0x60c000000240 is located 0 bytes to the right of 128-byte region [0x60c0000001c0,0x60c000000240)
 allocated by thread T0 here:
-    #0 0x5605e41cc686 in __interceptor_realloc (/AFLplusplus/security-software-lifecycle/challenges/challenge-2-json-parser/json_reader+0xa2686) (BuildId: aa588682729e501e6be647fc1e94ffe19a385a7e)
-    #1 0x5605e4207759 in main /AFLplusplus/security-software-lifecycle/challenges/challenge-2-json-parser/json_reader.c:60:15
-    #2 0x7f70850ccd8f  (/lib/x86_64-linux-gnu/libc.so.6+0x29d8f) (BuildId: a43bfc8428df6623cd498c9c0caeb91aec9be4f9)
+    #0 0x557230d8d25e in __interceptor_malloc (/AFLplusplus/security-software-lifecycle/challenges/challenge-2-json-parser/json_reader+0xa225e) (BuildId: aa588682729e501e6be647fc1e94ffe19a385a7e)
+    #1 0x7f056f81894a in handle_number /AFLplusplus/security-software-lifecycle/challenges/challenge-2-json-parser/YAJL/src/yajl_tree.c
+    #2 0x7f056f80e002 in yajl_do_parse /AFLplusplus/security-software-lifecycle/challenges/challenge-2-json-parser/YAJL/src/yajl_parser.c:265:29
+    #3 0x7f056f81833c in yajl_tree_parse /AFLplusplus/security-software-lifecycle/challenges/challenge-2-json-parser/YAJL/src/yajl_tree.c:379:14
+    #4 0x557230dc87a4 in main /AFLplusplus/security-software-lifecycle/challenges/challenge-2-json-parser/json_reader.c:69:25
+    #5 0x7f056f4f2d8f  (/lib/x86_64-linux-gnu/libc.so.6+0x29d8f) (BuildId: a43bfc8428df6623cd498c9c0caeb91aec9be4f9)
 
-SUMMARY: AddressSanitizer: heap-buffer-overflow /AFLplusplus/security-software-lifecycle/challenges/challenge-2-json-parser/YAJL/src/yajl_encode.c:93:27 in hexToDigit
+SUMMARY: AddressSanitizer: heap-buffer-overflow /AFLplusplus/security-software-lifecycle/challenges/challenge-2-json-parser/YAJL/src/yajl_tree.c:267:34 in handle_number
 Shadow bytes around the buggy address:
-  0x0c087fff7fc0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-  0x0c087fff7fd0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-  0x0c087fff7fe0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-  0x0c087fff7ff0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-  0x0c087fff8000: fa fa fd fd fd fd fd fd fa fa 00 00 00 00 00 00
-=>0x0c087fff8010: fa fa 00 00 00 00[01]fa fa fa fa fa fa fa fa fa
-  0x0c087fff8020: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
-  0x0c087fff8030: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
-  0x0c087fff8040: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
-  0x0c087fff8050: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
-  0x0c087fff8060: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x0c187fff7ff0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x0c187fff8000: fa fa fa fa fa fa fa fa 00 00 00 00 00 00 00 00
+  0x0c187fff8010: 00 00 00 00 00 00 00 fa fa fa fa fa fa fa fa fa
+  0x0c187fff8020: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x0c187fff8030: fa fa fa fa fa fa fa fa 00 00 00 00 00 00 00 00
+=>0x0c187fff8040: 00 00 00 00 00 00 00 00[fa]fa fa fa fa fa fa fa
+  0x0c187fff8050: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x0c187fff8060: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x0c187fff8070: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x0c187fff8080: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x0c187fff8090: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
 Shadow byte legend (one shadow byte represents 8 application bytes):
   Addressable:           00
   Partially addressable: 01 02 03 04 05 06 07 
@@ -134,4 +51,4 @@ Shadow byte legend (one shadow byte represents 8 application bytes):
   ASan internal:           fe
   Left alloca redzone:     ca
   Right alloca redzone:    cb
-==515==ABORTING
+==1237==ABORTING
